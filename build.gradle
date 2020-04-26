@@ -17,6 +17,7 @@ dependencies {
     // Dependencies
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:2.2.6.RELEASE"
     implementation "org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE"
+    implementation "org.springframework.boot:spring-boot-starter-websocket:2.2.6.RELEASE"
     
     // Lombok
     compileOnly "org.projectlombok:lombok:1.18.8"

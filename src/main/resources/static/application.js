@@ -1,9 +1,9 @@
-/*
+var webSocket;
+
 $(function() {
     connect();
 });
 
 function connect() {
-    let websocket = new WebSocket('ws://localhost:8080/web-socket');
+    websocket = new WebSocket('ws://localhost:8080/web-socket');
 }
-*/
