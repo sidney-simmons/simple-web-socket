@@ -7,7 +7,7 @@ package com.sidneysimmons.simple.web.socket.controller;
  */
 public class ViewNames {
 
-    public static final String DASHBOARD = "dashboard";
+    public static final String HOME = "home";
 
     private ViewNames() {
         // No need to instantiate this class

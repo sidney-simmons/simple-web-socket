@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Dashboard controller for dashboard related endpoints.
+ * Home controller for home related endpoints.
  * 
  * @author Sidney Simmons
  */
 @Controller
-@RequestMapping(value = "/dashboard")
-public class DashboardController {
+@RequestMapping(value = "")
+public class HomeController {
 
     /**
-     * Return the dashboard page.
+     * Return the home page.
      * 
-     * @return the dashboard page
+     * @return the home page
      */
     @GetMapping(value = "")
-    public String getDashboard() {
-        return ViewNames.DASHBOARD;
+    public String getHome() {
+        return ViewNames.HOME;
     }
 
 }
