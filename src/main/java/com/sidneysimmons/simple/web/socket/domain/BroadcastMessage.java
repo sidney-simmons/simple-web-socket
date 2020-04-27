@@ -3,8 +3,8 @@ package com.sidneysimmons.simple.web.socket.domain;
 import lombok.Data;
 
 @Data
-public class BackgroundColorMessage {
+public class BroadcastMessage {
 
-    private String color;
+    private String message;
 
 }

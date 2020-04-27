@@ -1,7 +1,11 @@
 package com.sidneysimmons.simple.web.socket.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sidneysimmons.simple.web.socket.domain.BroadcastMessage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
@@ -13,6 +17,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Slf4j
 @Service("webSocketService")
 public class WebSocketService extends TextWebSocketHandler {
+
+    @Resource(name = "objectMapper")
+    private ObjectMapper objectMapper;
 
     private List<WebSocketSession> sessions = new ArrayList<>();
 
@@ -42,6 +49,16 @@ public class WebSocketService extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log.info("Connection closed from " + session.getRemoteAddress() + ".");
         removeSession(session);
+    }
+
+    public synchronized void broadcastMessage(BroadcastMessage message) {
+        for (WebSocketSession session : sessions) {
+            try {
+                session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
+            } catch (IOException e) {
+                log.warn("Cannot send message.", e);
+            }
+        }
     }
 
     private synchronized void addSession(WebSocketSession session) {
