@@ -21,7 +21,7 @@ public class MessagingService {
     private void sendSystemBroadcastMessage() {
         BroadcastMessage message = new BroadcastMessage();
         message.setMessage("System broadcast on " + DATE_TIME_FORMATTER.format(Instant.now()) + ".");
-        webSocketService.broadcastMessage(message);
+        webSocketService.sendMessage(message);
     }
 
 }

@@ -4,6 +4,27 @@ $(function() {
     connect();
 });
 
+$(document).on("keypress", function(e) {
+    let responseInputInFocus = $("#response-input").is(":focus");
+    if (responseInputInFocus && e.which == 13) {
+        let messageToSend = $("#response-input").val();
+        sendMessage(messageToSend);
+        $("#response-input").val("");
+    }
+});
+
+function sendMessage(messageToSend) {
+    $.ajax({
+        url : "/web-socket/submit-message",
+        type : "POST",
+        data : JSON.stringify({
+            message : messageToSend
+        }),
+        contentType : "application/json",
+        dataType : "json"
+    });
+}
+
 function connect() {
     webSocket = new WebSocket(buildWebSocketUrl());
     webSocket.onopen = webSocketOnOpen;

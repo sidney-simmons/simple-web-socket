@@ -1,7 +1,7 @@
 package com.sidneysimmons.simple.web.socket.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sidneysimmons.simple.web.socket.domain.BroadcastMessage;
+import com.sidneysimmons.simple.web.socket.domain.Message;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class WebSocketService extends TextWebSocketHandler {
         removeSession(session);
     }
 
-    public synchronized void broadcastMessage(BroadcastMessage message) {
+    public synchronized void sendMessage(Message message) {
         for (WebSocketSession session : sessions) {
             try {
                 session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
