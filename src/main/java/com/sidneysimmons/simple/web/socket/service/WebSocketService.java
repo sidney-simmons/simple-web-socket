@@ -41,7 +41,7 @@ public class WebSocketService extends TextWebSocketHandler {
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        log.info("Transport error occurred for " + session.getRemoteAddress() + ".", exception);
+        log.info("Connection closed from " + session.getRemoteAddress() + ".");
         removeSession(session);
     }
 
