@@ -53,6 +53,11 @@ function webSocketOnOpen(event) {
 function webSocketOnClose(event) {
     console.log("Web socket closed.", event)
     setThreadConnectionStatus(false);
+
+    // Attempt to restart the connection
+    setTimeout(function() {
+        connect()
+    }, 1000);
 }
 
 function webSocketOnError(event) {
