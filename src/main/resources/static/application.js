@@ -47,10 +47,12 @@ function buildWebSocketUrl() {
 
 function webSocketOnOpen(event) {
     console.log("Web socket opened.", event)
+    setThreadConnectionStatus(true);
 }
 
 function webSocketOnClose(event) {
     console.log("Web socket closed.", event)
+    setThreadConnectionStatus(false);
 }
 
 function webSocketOnError(event) {
@@ -72,4 +74,15 @@ function webSocketOnMessage(event) {
     $(".message-thread").animate({
         scrollTop : $(".message-thread")[0].scrollHeight
     }, 200);
+}
+
+function setThreadConnectionStatus(connected) {
+    let $threadConnectionStatus = $(".thread-status-connection-status");
+    if (connected) {
+        $threadConnectionStatus.text("CONNECTED");
+        $threadConnectionStatus.addClass("connection-status-connected").removeClass("connection-status-disconnected");
+    } else {
+        $threadConnectionStatus.text("DISCONNECTED");
+        $threadConnectionStatus.addClass("connection-status-disconnected").removeClass("connection-status-connected");
+    }
 }

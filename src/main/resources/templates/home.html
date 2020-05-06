@@ -13,9 +13,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
 <script th:src="@{/application.js?version=} + ${#strings.randomAlphanumeric(10)}"></script>
 
-<title>Home</title>
+<title>Simple Web Sockets</title>
 </head>
 <body>
+    <div class="thread-status-bar">
+        <div class="thread-status-connection-status"></div>
+    </div>
     <div class="message-thread"></div>
     <div class="response-bar">
         <input type="text" id="response-input">

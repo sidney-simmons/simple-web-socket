@@ -10,6 +10,23 @@ body {
     background-color: #dadada;
 }
 
+.thread-status-bar {
+    margin: 10px 10px 0px 10px;
+    text-decoration: underline;
+}
+
+.thread-status-connection-status {
+    display: inline-block;
+}
+
+.connection-status-connected {
+    color: #02a200;
+}
+
+.connection-status-disconnected {
+    color: #a20000;
+}
+
 .message-thread {
     flex: 1;
     overflow: auto;
