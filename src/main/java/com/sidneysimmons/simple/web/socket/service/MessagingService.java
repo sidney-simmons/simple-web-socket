@@ -1,6 +1,6 @@
 package com.sidneysimmons.simple.web.socket.service;
 
-import com.sidneysimmons.simple.web.socket.domain.BroadcastMessage;
+import com.sidneysimmons.simple.web.socket.domain.SystemMessage;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,16 +15,16 @@ public class MessagingService {
     @Resource(name = "webSocketService")
     private WebSocketService webSocketService;
 
-    @Value("${system.broadcast.message.enabled}")
-    private Boolean systemBroadcastEnabled;
+    @Value("${system.recurring.message.enabled}")
+    private Boolean systemRecurringMessageEnabled;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss zzz")
             .withZone(ZoneId.systemDefault());
 
-    @Scheduled(fixedDelayString = "${system.broadcast.message.delay}")
-    private void sendSystemBroadcastMessage() {
-        if (systemBroadcastEnabled) {
-            BroadcastMessage message = new BroadcastMessage();
+    @Scheduled(fixedDelayString = "${system.recurring.message.delay}")
+    private void sendSystemRecurringMessage() {
+        if (systemRecurringMessageEnabled) {
+            SystemMessage message = new SystemMessage();
             message.setMessage("System broadcast on " + DATE_TIME_FORMATTER.format(Instant.now()) + ".");
             webSocketService.sendMessage(message);
         }
