@@ -46,12 +46,10 @@ function buildWebSocketUrl() {
 }
 
 function webSocketOnOpen(event) {
-    console.log("Web socket opened.", event)
     setThreadConnectionStatus(true);
 }
 
 function webSocketOnClose(event) {
-    console.log("Web socket closed.", event)
     setThreadConnectionStatus(false);
 
     // Attempt to restart the connection
@@ -61,7 +59,7 @@ function webSocketOnClose(event) {
 }
 
 function webSocketOnError(event) {
-    console.log("Web socket error occurred.", event)
+    // Nothing to do here at the moment
 }
 
 function webSocketOnMessage(event) {
