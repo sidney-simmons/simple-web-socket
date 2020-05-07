@@ -12,19 +12,21 @@ body {
 
 .thread-status-bar {
     margin: 10px 10px 0px 10px;
-    text-decoration: underline;
 }
 
 .thread-status-connection-status {
     display: inline-block;
+    padding: 3px;
 }
 
 .connection-status-connected {
-    color: #02a200;
+    background-color: #73c367;
+    color: #0d6100;
 }
 
 .connection-status-disconnected {
-    color: #a20000;
+    background-color: #ff4f4f;
+    color: #610000;
 }
 
 .message-thread {
