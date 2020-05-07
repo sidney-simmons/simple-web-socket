@@ -22,7 +22,8 @@ public class WebSocketController {
     private WebSocketService webSocketService;
 
     /**
-     * Submit a user message to all web socket sessions.
+     * Submit a user message to all web socket sessions. You could also submit user messages via the web
+     * socket connection.
      * 
      * @param message the message
      */

@@ -22,7 +22,8 @@ $(document).on("keypress", function(e) {
 });
 
 /**
- * Send a message to the server.
+ * Send a message to the server. You could also submit user messages via the web
+ * socket connection.
  * 
  * @param messageToSend
  *            the message to send
