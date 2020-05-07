@@ -52,11 +52,22 @@ public class WebSocketService extends TextWebSocketHandler {
     }
 
     public synchronized void sendMessage(Message message) {
+        // Turn the message object into a payload
+        String messagePayload = null;
+        try {
+            messagePayload = objectMapper.writeValueAsString(message);
+        } catch (IOException e) {
+            log.warn("Cannot create message payload. Message will not be sent.", e);
+            return;
+        }
+
+        // Send the message payload to all sessions
+        TextMessage textMessage = new TextMessage(messagePayload);
         for (WebSocketSession session : sessions) {
             try {
-                session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
+                session.sendMessage(textMessage);
             } catch (IOException e) {
-                log.warn("Cannot send message.", e);
+                log.warn("Cannot send message to session " + session.getRemoteAddress() + ".", e);
             }
         }
     }
