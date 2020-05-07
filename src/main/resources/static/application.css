@@ -1,0 +1,62 @@
+html, body {
+    height: 100%;
+    font-family: monospace;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #dadada;
+}
+
+.thread-status-bar {
+    margin: 10px 10px 0px 10px;
+}
+
+.thread-status-connection-status {
+    display: inline-block;
+    padding: 3px;
+}
+
+.connection-status-connected {
+    background-color: #73c367;
+    color: #0d6100;
+}
+
+.connection-status-disconnected {
+    background-color: #ff4f4f;
+    color: #610000;
+}
+
+.message-thread {
+    flex: 1;
+    overflow: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    border: 1px solid #6f6f6f;
+}
+
+.message {
+    padding: 5px;
+    font-size: 17px;
+}
+
+.system-message {
+    color: #cccccc;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.response-bar {
+    margin: 0px 10px 10px 10px;
+}
+
+#response-input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #6f6f6f;
+    font-size: 17px;
+    font-family: monospace;
+    padding: 3px;
+}
