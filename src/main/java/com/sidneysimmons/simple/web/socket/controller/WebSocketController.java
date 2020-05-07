@@ -2,7 +2,6 @@ package com.sidneysimmons.simple.web.socket.controller;
 
 import com.sidneysimmons.simple.web.socket.domain.UserMessage;
 import com.sidneysimmons.simple.web.socket.service.WebSocketService;
-import java.io.IOException;
 import javax.annotation.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +21,13 @@ public class WebSocketController {
     @Resource(name = "webSocketService")
     private WebSocketService webSocketService;
 
+    /**
+     * Submit a user message to all web socket sessions.
+     * 
+     * @param message the message
+     */
     @PostMapping(value = "/submit-message")
-    public void submitMessage(@RequestBody UserMessage message) throws IOException {
+    public void submitMessage(@RequestBody UserMessage message) {
         webSocketService.sendMessage(message);
     }
 

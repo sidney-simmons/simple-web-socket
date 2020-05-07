@@ -15,6 +15,11 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+/**
+ * Service class that acts as a web socket handler.
+ * 
+ * @author Sidney Simmons
+ */
 @Slf4j
 @Service("webSocketService")
 public class WebSocketService extends TextWebSocketHandler {
@@ -24,6 +29,9 @@ public class WebSocketService extends TextWebSocketHandler {
 
     private List<WebSocketSession> sessions = new ArrayList<>();
 
+    /**
+     * Add the new session to the list of sessions.
+     */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("Connection established from " + session.getRemoteAddress() + ".");
@@ -42,16 +50,24 @@ public class WebSocketService extends TextWebSocketHandler {
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        log.info("Connection closed from " + session.getRemoteAddress() + ".");
-        removeSession(session);
+
     }
 
+    /**
+     * Remove the session from the list of sessions.
+     */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log.info("Connection closed from " + session.getRemoteAddress() + ".");
         removeSession(session);
     }
 
+    /**
+     * Synchronized method for sending a given message to all web socket sessions. Note that this
+     * synchronized approach is not efficient - this is just an example.
+     * 
+     * @param message the message
+     */
     public synchronized void sendMessage(Message message) {
         // Turn the message object into a payload
         String messagePayload = null;
@@ -73,6 +89,12 @@ public class WebSocketService extends TextWebSocketHandler {
         }
     }
 
+    /**
+     * Synchronized method for adding a given session to the list of sessions. Note that this
+     * synchronized approach is not efficient - this is just an example.
+     * 
+     * @param session the session
+     */
     private synchronized void addSession(WebSocketSession session) {
         sessions.add(session);
 
@@ -82,6 +104,12 @@ public class WebSocketService extends TextWebSocketHandler {
         sendMessage(message);
     }
 
+    /**
+     * Synchronized method for removing a given session from the list of sessions. Note that this
+     * synchronized approach is not efficient - this is just an example.
+     * 
+     * @param session the session
+     */
     private synchronized void removeSession(WebSocketSession session) {
         sessions.remove(session);
 

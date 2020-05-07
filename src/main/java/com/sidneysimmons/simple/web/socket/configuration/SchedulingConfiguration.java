@@ -15,10 +15,16 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @EnableScheduling
 public class SchedulingConfiguration {
 
+    /**
+     * Create a task scheduler for spring to execute methods annotated with the "@Scheduled" annotation.
+     * 
+     * @return a task scheduler
+     */
     @Bean(name = "taskScheduler")
     public TaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
         taskScheduler.setPoolSize(5);
+        taskScheduler.setThreadNamePrefix("custom-task-scheduler-");
         return taskScheduler;
     }
 

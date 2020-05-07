@@ -1,18 +1,32 @@
 var webSocket;
 
+/**
+ * Connect to the web socket server on page load.
+ */
 $(function() {
     connect();
 });
 
+/**
+ * Send a message to the server when the message box is in focus and the enter
+ * key is pressed.
+ */
 $(document).on("keypress", function(e) {
     let responseInputInFocus = $("#response-input").is(":focus");
-    if (responseInputInFocus && e.which == 13) {
+    let responseInputHasText = $("#response-input").val().length !== 0;
+    if (responseInputInFocus && responseInputHasText && e.which == 13) {
         let messageToSend = $("#response-input").val();
         sendMessage(messageToSend);
         $("#response-input").val("");
     }
 });
 
+/**
+ * Send a message to the server.
+ * 
+ * @param messageToSend
+ *            the message to send
+ */
 function sendMessage(messageToSend) {
     $.ajax({
         url : "/web-socket/submit-message",
@@ -25,6 +39,9 @@ function sendMessage(messageToSend) {
     });
 }
 
+/**
+ * Connect to the web socket server.
+ */
 function connect() {
     webSocket = new WebSocket(buildWebSocketUrl());
     webSocket.onopen = webSocketOnOpen;
@@ -33,6 +50,11 @@ function connect() {
     webSocket.onmessage = webSocketOnMessage;
 }
 
+/**
+ * Build the web socket URL based on the current window location and protocol.
+ * 
+ * @returns the url
+ */
 function buildWebSocketUrl() {
     let url = "";
     if (window.location.protocol === "https:") {
@@ -45,10 +67,24 @@ function buildWebSocketUrl() {
     return url;
 }
 
+/**
+ * Web socket on open event handler. Sets the thread connection status to
+ * connected.
+ * 
+ * @param event
+ *            the event
+ */
 function webSocketOnOpen(event) {
     setThreadConnectionStatus(true);
 }
 
+/**
+ * Web socket on close event handler. Sets the thread connection status to
+ * disconnected and starts a reconnect process.
+ * 
+ * @param event
+ *            the event
+ */
 function webSocketOnClose(event) {
     setThreadConnectionStatus(false);
 
@@ -62,6 +98,14 @@ function webSocketOnError(event) {
     // Nothing to do here at the moment
 }
 
+/**
+ * Web socket on message event handler. Removes the oldest message if the thread
+ * is too long and appends the new message. Also scrolls to the bottom of the
+ * thread.
+ * 
+ * @param event
+ *            the event
+ */
 function webSocketOnMessage(event) {
     let message = JSON.parse(event.data);
 
@@ -87,6 +131,12 @@ function webSocketOnMessage(event) {
     }, 200);
 }
 
+/**
+ * Set the thread connection status.
+ * 
+ * @param connected
+ *            boolean indicating if we're connected or disconnected
+ */
 function setThreadConnectionStatus(connected) {
     let $threadConnectionStatus = $(".thread-status-connection-status");
     if (connected) {

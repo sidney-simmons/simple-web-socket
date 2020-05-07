@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for generic messaging logic.
+ * 
+ * @author Sidney Simmons
+ */
 @Service("messagingService")
 public class MessagingService {
 
@@ -21,6 +26,10 @@ public class MessagingService {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss zzz")
             .withZone(ZoneId.systemDefault());
 
+    /**
+     * Send a recurring system message to all web socket sessions. Scheduled via a fixed delay
+     * configured via properties.
+     */
     @Scheduled(fixedDelayString = "${system.recurring.message.delay}")
     private void sendSystemRecurringMessage() {
         if (systemRecurringMessageEnabled) {
