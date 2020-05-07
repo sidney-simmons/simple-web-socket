@@ -2,6 +2,7 @@ package com.sidneysimmons.simple.web.socket.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sidneysimmons.simple.web.socket.domain.Message;
+import com.sidneysimmons.simple.web.socket.domain.SystemMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +75,20 @@ public class WebSocketService extends TextWebSocketHandler {
 
     private synchronized void addSession(WebSocketSession session) {
         sessions.add(session);
+
+        // Send a notification that a session was added
+        Message message = new SystemMessage();
+        message.setMessage(session.getRemoteAddress() + " joined.");
+        sendMessage(message);
     }
 
     private synchronized void removeSession(WebSocketSession session) {
         sessions.remove(session);
+
+        // Send a notification that a session was removed
+        Message message = new SystemMessage();
+        message.setMessage(session.getRemoteAddress() + " left.");
+        sendMessage(message);
     }
 
 }
