@@ -2,6 +2,7 @@
 
 simple-web-socket is a web application meant to illustrate a basic web socket setup.  Some of what's illustrated:
 * Web socket communication between client and server
+* Automatic web socket reconnect to the server
 * Multiple message types
 * Scheduled system broadcasts via the "@Scheduled" method annotation
 
