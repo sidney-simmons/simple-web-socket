@@ -71,7 +71,15 @@ function webSocketOnMessage(event) {
     }
 
     // Append the new message
-    $(".message-thread").append("<div class=\"message\">" + message.message + "</div>");
+    let $messageDiv = $(document.createElement("div"));
+    $messageDiv.text(message.message);
+    $messageDiv.addClass("message");
+
+    // Add an extra class if this is a system message
+    if (message.messageType === "SYSTEM") {
+        $messageDiv.addClass("system-message");
+    }
+    $(".message-thread").append($messageDiv);
 
     // Scroll to the bottom of the thread
     $(".message-thread").animate({
